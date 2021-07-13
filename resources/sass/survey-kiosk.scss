@@ -1,0 +1,292 @@
+@import 'variables';
+
+
+$formHeight: 100%;
+
+
+//////////////////
+//Standard layout
+//////////////////
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+    border: none;
+}
+
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-size: 62.5%; // 1rem = 10px = 10px/16px(default)
+    box-sizing: border-box;
+}
+
+article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+    display: block;
+}
+
+body {
+    margin: 0;
+    font-family: "Nunito", sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #212529;
+    text-align: left;
+    background-color: #f8fafc;
+}
+
+button {
+    cursor: pointer;
+}
+
+//////////////////
+//App layout
+//1. App
+//2. left side of page
+//3. right side of page
+//  3.1 Right side top (Title, subtitle, QR code)
+//4. Right bottom side of the page
+//5. Utilities
+//  5.1 Button
+//  5.2 Exit-button
+//6. Toggle classes
+//////////////////
+
+//1. App
+#app {
+    display: flex;
+    height: 100vh;
+    position: relative;
+}
+
+//2. left side of page
+.app__left {
+    display: flex;
+    flex: 70%;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all .75s;
+
+    &__photo-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+
+        transition: all .75s;
+    }
+
+    &__logo-box {
+        display: flex;
+
+        height: 85px;
+        margin-left: 3.5rem;
+
+        &__logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 15rem;
+            object-fit: contain;
+            object-position: center;
+        }
+    }
+
+    &__survey {
+        display: flex;
+
+        height: 100%;
+    }
+
+    &__form {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+
+        //height: 40%;
+        height: 0%;
+        transition: all 2s;
+        //transition-delay: 2s;
+    }
+}
+
+//3. right side of page
+.app__right {
+    display: flex;
+    flex-direction: column;
+    flex: 30%;
+    align-items: center;
+    justify-content: center;
+    //margin-top: 10%;
+    padding-top: 15vh;
+    transition: all .75s;
+    overflow: hidden;
+
+    &__top {
+        flex: 1;
+        height: 100%;
+        justify-content: space-around;
+
+        //////
+        //3.1 Right side top (Title, subtitle,  QR code)
+        /////
+        &__title {
+            text-align: center;
+        }
+
+        &__subtitle {
+            text-align: center;
+        }
+
+        &__QR__container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            height: 75%;
+            padding: 0 5rem;
+
+            &__QR {
+                object-fit: contain;
+                object-position: center;
+                width: 100%;
+            }
+        }
+    }
+
+    //4. Right bottom side of the page
+    &__bottom {
+        flex: 0;
+        height: 0%;
+
+        transition: all 2s;
+    }
+}
+
+
+//////////////////
+//5. Utilities
+//////////////////
+
+//5.1 Button
+.kiosk__button {
+    background: radial-gradient(circle, $color-primary-kiosk 0%, $color-secondary-kiosk 100%);
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+    font-size: 2rem;
+    height: 4rem;
+    margin-top: 2rem;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    transition: all .25s;
+
+    &:active {
+        transform: translateY(1rem);
+    }
+}
+
+//5.2 Exit-button
+.exit-button-wrapper {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+
+    height: 3rem;
+    width: 3rem;
+
+    &__exit-button {
+        position: relative;
+        height: 0.5rem;
+        width: 100%;
+        background-color: red;
+
+        visibility: hidden;
+
+        &::before,
+        &::after {
+            visibility: visible;
+            content: "";
+            position: absolute;
+            left: 0;
+            height: .5rem;
+            width: 3rem;
+            background-color: red;
+            transition: all 0.5s;
+        }
+
+        &::before {
+            transform: rotate(45deg);
+            transform-origin: center;
+        }
+
+        &::after {
+            transform: rotate(-45deg);
+            transform-origin: center;
+        }
+    }
+}
+
+//////////////////
+//6. Toggle classes
+//////////////////
+.app__left {
+
+    &__photo-wrapper {
+
+        &.expandedLeftForm {
+            visibility: hidden;
+        }
+    }
+
+    &.hideForm {
+        //display: none;
+        flex: 0;
+        opacity: 0;
+    }
+
+    .app__left__form {
+
+        &.SlideUpLeftForm {
+            height: $formHeight;
+        }
+    }
+}
+
+.app__right {
+    &.expandedForm {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    &.expandedLeftForm {
+        flex: 0;
+    }
+
+    .app__right__bottom {
+
+        &.SlideUpRightForm {
+            flex: 1;
+            //height: initial;
+            height: 100%;
+
+            .feedback__form__input__textArea {
+                height: 69%;
+            }
+        }
+    }
+}
+
+
+
+
+
